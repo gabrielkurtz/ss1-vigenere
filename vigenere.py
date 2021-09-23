@@ -1,9 +1,12 @@
+# Trabalho de Seguranca de Sistemas - PUCRS
+# Autor: Gabriel Kurtz
+
 import os
 import collections
 
 # Variaveis Globais Configuraveis
 # Path do arquivo de texto
-FILE_NAME = 'cipher1.txt'
+FILE_NAME = 'cipher4.txt'
 
 # Lingua - "EN"/"PT". Default: "EN"
 LANGUAGE = "EN"
@@ -119,7 +122,6 @@ def findKey(text, keySize, mostCommon):
 
 def decipherText(text, key):
     keySize = len(key)
-    textSize = len(text)
     decipheredText = ""
 
     i = 0
@@ -138,16 +140,24 @@ def decipherText(text, key):
     
 
 if __name__ == "__main__":
+    averageIc = AVERAGE_IC_EN
+    mostFrequent = MOST_FREQUENT_EN
+    if(LANGUAGE == "PT"):
+        averageIc = AVERAGE_IC_PT
+        mostFrequent = MOST_FREQUENT_PT
+
     text = readAndFormatText()
     print("--- Calculating Key Size (IC for each increment size) ---")
 
-    keySize = findKeySize(text, AVERAGE_IC_EN)
+    keySize = findKeySize(text, averageIc)
     print("--- Probable Key Size: {}".format(keySize))
 
-    key = findKey(text, keySize, MOST_FREQUENT_EN)
-    # key = findKey(text, 8, MOST_FREQUENT_EN)
+    key = findKey(text, keySize, mostFrequent)
 
     decipheredText = decipherText(text, key)
-    print(decipheredText)
 
-# 11, 22, 4, 24
+    writeFilePath = os.getcwd() + "/Decifrados/" + FILE_NAME
+    with open(writeFilePath, "w+") as file:
+        file.write(decipheredText.lower())
+    
+    print("--- Final da execucao")

@@ -1,12 +1,13 @@
 # Trabalho de Seguranca de Sistemas - PUCRS
 # Autor: Gabriel Kurtz
+# https://youtu.be/9wP7pvhh6h8
 
 import os
 import collections
 
 # Variaveis Globais Configuraveis
 # Path do arquivo de texto
-FILE_NAME = 'cipher4.txt'
+FILE_NAME = '20201-teste1.txt'
 
 # Lingua - "EN"/"PT". Default: "EN"
 LANGUAGE = "EN"

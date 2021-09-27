@@ -115,7 +115,7 @@ def findKey(text, keySize, mostCommon):
             mostCommonCharText = collections.Counter(dislocateCharacters(splitTexts[i], j)).most_common(1)[0][0]
             if(mostCommonCharText == mostCommonCharLang):
                 key[i] = j
-                print(key)
+                print(displayKeyAsLetters(key))
                 break
 
     return key
@@ -134,10 +134,17 @@ def decipherText(text, key):
             i += 1
     
     return decipheredText
-
-
-
     
+def displayKeyCharAsLetter(keyNumber):
+    return chr(ord('A') + keyNumber)
+
+def displayKeyAsLetters(key):
+    keySize = len(key)
+    keyLetters = [None]*keySize
+    for i in range (0, keySize):
+        if key[i] != None:
+            keyLetters[i] = displayKeyCharAsLetter(key[i])
+    return keyLetters
 
 if __name__ == "__main__":
     averageIc = AVERAGE_IC_EN
@@ -153,11 +160,13 @@ if __name__ == "__main__":
     print("--- Probable Key Size: {}".format(keySize))
 
     key = findKey(text, keySize, mostFrequent)
+    keyAsLetters = displayKeyAsLetters(key)
 
+    print("--- Found key: {}".format(keyAsLetters))
     decipheredText = decipherText(text, key)
 
     writeFilePath = os.getcwd() + "/Decifrados/" + FILE_NAME
     with open(writeFilePath, "w+") as file:
         file.write(decipheredText.lower())
     
-    print("--- Final da execucao")
+    print("--- Program finished. Results were saved in a text file")
